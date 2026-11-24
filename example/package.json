@@ -1,0 +1,15 @@
+{
+  "name": "nitro-vercel-isr-fallback-example",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nitro build",
+    "dev": "nitro dev"
+  },
+  "dependencies": {
+    "nitro": "3.0.261103-rc"
+  },
+  "devDependencies": {
+    "jiti": "^2.7.0"
+  }
+}
