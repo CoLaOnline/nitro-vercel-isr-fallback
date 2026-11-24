@@ -14,13 +14,12 @@ export type RefreshResult = {
 };
 
 export type RefreshOptions = {
-  /** Paths to request, or a function returning them for the live origin. */
   paths: string[] | ((origin: string) => string[] | Promise<string[]>);
-  /** Keeps the function alive after the response, e.g. `waitUntil` from `@vercel/functions`. */
+  /** Keeps the function alive after the response is sent. */
   waitUntil: (work: Promise<unknown>) => void;
-  /** Vercel webhook secret. Defaults to `process.env.VERCEL_WEBHOOK_SECRET`. */
+  /** Defaults to `process.env.VERCEL_WEBHOOK_SECRET`. */
   secret?: string;
-  /** Response header that marks a fallback. Must match the build module's `header`. */
+  /** Response header that marks a fallback. */
   header?: string;
   passes?: number;
   gapMs?: number;

@@ -6,16 +6,15 @@ import { Worker } from "node:worker_threads";
 import type { Nitro, NitroRouteRules } from "nitro/types";
 
 export type IsrFallbackContext = {
-  /** Requests a path from the built server, the same way the pages are rendered. */
+  /** Requests a path from the built server. */
   fetch: (path: string) => Promise<Response>;
 };
 
 export type IsrFallbackOptions = {
-  /** Paths to render, or a function returning them. */
   routes: string[] | ((context: IsrFallbackContext) => string[] | Promise<string[]>);
   /** Return false to leave a path without a fallback. */
   filter?: (path: string) => boolean;
-  /** Return a reason to refuse a rendered page. Runs after the built-in checks. */
+  /** Return a reason to refuse a rendered page. */
   accept?: (response: Response, path: string) => string | void | Promise<string | void>;
   /** Origin of the request URL the pages are rendered with. */
   origin?: string;
@@ -23,7 +22,6 @@ export type IsrFallbackOptions = {
   header?: string | false;
   /** Headers of the rendered page that the fallback is served with. */
   copyHeaders?: string[];
-  /** Headers of the render request. */
   requestHeaders?: Record<string, string>;
   concurrency?: number;
   /** Limit for loading the server bundle and for each render. */

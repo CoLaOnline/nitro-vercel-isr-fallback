@@ -203,7 +203,7 @@ pointing at the route on your production domain, and store its secret as
 - It depends on the internals of Nitro's Vercel preset: the `compiled` hook, the
   `-isr` function naming and the `isr` object being passed through. A Nitro
   release can change these. The output check then fails the build with a message
-  naming what is wrong. CI here runs the tests weekly against Nitro's `latest`.
+  naming what is wrong.
 - `fallback`, `initialStatus` and `initialHeaders` are not in Nitro's type for
   the `isr` rule. They are documented fields of
   [Vercel's prerender config](https://vercel.com/docs/build-output-api/v3/primitives#prerender-configuration-file).
