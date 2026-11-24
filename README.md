@@ -237,8 +237,25 @@ these, so treat them as observations.
 
 The approach has run in production since November 2026 on a TanStack Start site
 on Nitro `3.0.260903-beta`. This repository is the generic version of that code.
-Its tests build real Vercel output with Nitro, and the example app builds
-locally with the expected files.
+Its tests build real Vercel output with Nitro.
+
+The [example app](example) is deployed at
+<https://nitro-vercel-isr-fallback-example.vercel.app> on Nitro `3.0.261103-rc`.
+Each page there waits 800 ms before it renders. Checked on 24 November 2026,
+right after a deploy:
+
+| Request | `x-vercel-cache` | `x-isr-fallback` | Time to first byte |
+| --- | --- | --- | --- |
+| `/about`, first request | `PRERENDER` | `1` | 0.27 s |
+| `/blog/first-post`, first request | `PRERENDER` | `1` | 0.19 s |
+| `/blog/other`, no fallback, first request | `MISS` | absent | 1.21 s |
+| `/about`, about 90 s later | `HIT` | absent | runtime render |
+
+`/about` kept answering with the fallback (`HIT`) for about 70 seconds, then
+`STALE` once, then the runtime render. A signed test delivery to the refresh
+route replaced all three fallbacks; a wrong signature got 400 and an event
+naming another deployment got 503. A real webhook delivery from Vercel has not
+been tested against this generic handler.
 
 ## Prior art
 
